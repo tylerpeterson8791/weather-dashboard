@@ -9,7 +9,6 @@
 </head>
 
 <body>
-    <!-- Different than mock-up I changed color to blue and centered up the Title.  Also used a gradient like in the example -->
     <div class="text-white text-center bg-primary bg-gradient">
         <h1>Weather Dashboard</h1>
     </div>
@@ -17,24 +16,24 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3">
-                <input type="text" class="form-control mb-2" placeholder="Enter City">
-                <button type="button" class="btn btn-primary w-100 mb-3">Search</button>
+                <input type="text" class="form-control mb-2" placeholder="City Name">
+                <button type="button" id="searchbtn" class="btn btn-primary w-100 mb-3">Search</button>
                 <hr>
                 <div class="mb-3">
-                    <button type="button" class="btn btn-secondary w-100 mb-1">City 1</button>
-                    <button type="button" class="btn btn-secondary w-100 mb-1">City 2</button>
-                    <button type="button" class="btn btn-secondary w-100 mb-1">City 3</button>
-                    <button type="button" class="btn btn-secondary w-100 mb-1">City 4</button>
-                    <button type="button" class="btn btn-secondary w-100 mb-1">City 5</button>
-                    <button type="button" class="btn btn-secondary w-100 mb-1">City 6</button>
-                    <button type="button" class="btn btn-secondary w-100 mb-1">City 7</button>
-                    <button type="button" class="btn btn-secondary w-100 mb-1">City 8</button>
+                    <button type="button" id="city-1" class="btn btn-secondary w-100 mb-1">City 1</button>
+                    <button type="button" id="city-2" class="btn btn-secondary w-100 mb-1">City 2</button>
+                    <button type="button" id="city-3" class="btn btn-secondary w-100 mb-1">City 3</button>
+                    <button type="button" id="city-4" class="btn btn-secondary w-100 mb-1">City 4</button>
+                    <button type="button" id="city-5" class="btn btn-secondary w-100 mb-1">City 5</button>
+                    <button type="button" id="city-6" class="btn btn-secondary w-100 mb-1">City 6</button>
+                    <button type="button" id="city-7" class="btn btn-secondary w-100 mb-1">City 7</button>
+                    <button type="button" id="city-8" class="btn btn-secondary w-100 mb-1">City 8</button>
                 </div>
             </div>
 
             <div class="col-md-9">
                 
-                <div class="border p-3 mb-4">
+                <div id="Today" class="border p-3 mb-4">
                     <p>City Date Emoji</p>
                     <p>Temp: 70 degrees</p>
                     <p>Wind 10 MPH</p>
@@ -44,7 +43,7 @@
                 <div class="row">
                     <h4 class="mb-3">5-Day Forecast</h4>
 
-                    <div class="border p-3 mb-3 bg-info col-md-2">
+                    <div id="Day1" class="border p-3 mb-3 bg-info col-md-2">
                     <p>9/1/2023</p>
                     <p>Emoji Here</p>
                     <p>Temp: 70 degrees</p>
@@ -52,7 +51,7 @@
                     <p>Humidity 50%</p>
                     </div>
 
-                    <div class="border p-3 mb-3 bg-info col-md-2">
+                    <div id="Day2" class="border p-3 mb-3 bg-info col-md-2">
                         <p>9/2/2023</p>
                         <p>Emoji Here</p>
                         <p>Temp: 70 degrees</p>
@@ -60,7 +59,7 @@
                         <p>Humidity 50%</p>
                     </div>
 
-                    <div class="border p-3 mb-3 bg-info col-md-2">
+                    <div id="Day3" class="border p-3 mb-3 bg-info col-md-2">
                         <p>9/3/2023</p>
                         <p>Emoji Here</p>
                         <p>Temp: 70 degrees</p>
@@ -68,7 +67,7 @@
                         <p>Humidity 50%</p>
                     </div>
 
-                    <div class="border p-3 mb-3 bg-info col-md-2">
+                    <div id="Day4" class="border p-3 mb-3 bg-info col-md-2">
                         <p>9/4/2023</p>
                         <p>Emoji Here</p>
                         <p>Temp: 70 degrees</p>
@@ -76,7 +75,7 @@
                         <p>Humidity 50%</p>
                     </div>
 
-                    <div class="border p-3 mb-3 bg-info col-md-2">
+                    <div id="Day5" class="border p-3 mb-3 bg-info col-md-2">
                         <p>9/5/2023</p>
                         <p>Emoji Here</p>
                         <p>Temp: 70 degrees</p>
@@ -96,13 +95,8 @@
 
 </html>
 
-<!-- TODO - I need to ID up everything in here -->
 
-
-
-
-<!-- Just getting repo set up and starting to pseudocode 
-Weather dashboard:
+<!-- Weather dashboard:
 GIVEN a weather dashboard with form inputs
 
 WHEN I search for a city
@@ -115,39 +109,4 @@ WHEN I view future weather conditions for that city
 THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
 
 WHEN I click on a city in the search history
-THEN I am again presented with current and future conditions for that city
-
-Top Header solid purple and name Weather Dashboard.
-Body has two parts, on left 25% of the page a Column is a search area:
-Text Box
-Search Button
-line break
-Gray buttons for previous searched cities
-
-Gotta create divs for these, decide where we max out with previous searches.  Hidden when there is none, shift down when too many?  This could be the toughest part.
-
-NON-HTML NOTE - Dealing with the text input from misspelled cities might cause issues as well.  
-
-Right 75& is as follows:
-
-Outlined box a few rows deep tith city name, date, weather approprite icon then:
-temp
-wind
-humidity
-
-Under that box is a five day forecast with five equal cards:
-date xx/xx/xxxx
-icon
-temp
-wind
-humidity
-
-Saving the example under the images folder under 'mockup' for reference.
-
-almost everything in this is dynamic besides headers and titles.
-
-I think I can do the styling all in Bootstrap and hopefully don't even have a style.css.  This should be possible.
-
-Need to figure out how this resizes on mobile with the side bar.  Maybe everything lines up vertically with the info box, followed by 5-day, then previous searches with the search box on bottom?  That's my initial idea, may pivot but that sounds good in my head.
-
--->
+THEN I am again presented with current and future conditions for that city -->
