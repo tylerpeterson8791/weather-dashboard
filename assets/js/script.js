@@ -18,3 +18,34 @@
 
 
 
+document.getElementById('searchbtn').addEventListener('click', function () {
+    // Get the value from the user's text input box
+    var cityName = document.querySelector('input').value
+
+    // Make a fetch request to get latitude and longitude using the first API
+    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=5b26d3ed8c99c503e981069d21d6f31a`)
+        /// Use .then calls because of the API delay so it doesn't get ahead of itself
+        .then(response => response.json())
+        .then(data => {
+            if (data.length > 0) {
+                // Extract latitude and longitude
+                var lat = data[0].lat
+                var lon = data[0].lon
+
+                //Check to make sure by logging
+                console.log(lat)
+                console.log(lon)
+
+                // Make a fetch request to get weather forecast using the second API
+                return fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=5b26d3ed8c99c503e981069d21d6f31a`)
+            } else {
+                ///pop alert if city isn't found or input is nonsense
+                alert('CITY NOT FOUND')
+            }
+        })
+        .then(response => response.json())
+        .then(weatherData => {
+            // Log the results to check if it's working
+            console.log(weatherData)
+        })
+})
