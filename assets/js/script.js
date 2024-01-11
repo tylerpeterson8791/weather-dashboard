@@ -1,10 +1,11 @@
-//Event Listner for searchbtn
-//  fetch from lat/long api
-//  make into a variable (lets say latLon)
-//      use latlon to do a fetch from the 5Day api
+//Event Listner for searchbtn - DONE
+//  fetch from lat/long api - DONE
+//  make into a variable (lets say latLon) - DONE
+//      use latlon to do a fetch from the 5Day api - DONE
 //          convert pertinent data into variables
 //              push those variables to populate in html into appropriate fields
 //                  3HR BLOCK ON 5DAY - Need to figure out how to target appropriate dayblocks for 5Day Display
+//                      Save in local storage as an array in an array
 //
 //Take latlon and store it so it can be called again for the history buttons
 //  commit to local storage
@@ -16,7 +17,7 @@
 //
 //HOW DID THEY DO THE EMOJI THING??
 
-
+var cityName, todayTemp, todayWind, todayHumidity, todayEmoji;
 
 document.getElementById('searchbtn').addEventListener('click', function () {
     // Get the value from the user's text input box
@@ -44,8 +45,15 @@ document.getElementById('searchbtn').addEventListener('click', function () {
             }
         })
         .then(response => response.json())
+          // Drill down into the weatherData and populate global variables
         .then(weatherData => {
+            todayTemp = weatherData.list[0].main.temp_max;
+                todayWind = weatherData.list[0].wind.speed;
+                todayHumidity = weatherData.list[0].main.humidity;
+                todayEmoji = weatherData.list[0].weather[0].main;
+
             // Log the results to check if it's working
             console.log(weatherData)
+            console.log(cityName, todayTemp, todayWind, todayHumidity, todayEmoji)
         })
 })
