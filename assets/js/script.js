@@ -16,8 +16,16 @@
 //              HOW DO I HANDLE ADDING NEW CITIES AND BUMPING THE LIST. CONTINUOUSLY ADD AND ONLY DISPLAY FIRST 8?  I SMELL AN ARRAY
 //
 //HOW DID THEY DO THE EMOJI THING??
+// Use DayJS to get today's date in the format matching mock-up
+var todayDate = dayjs().format('MM/DD/YYYY');
+var cityNameProper, todayTemp, todayWind, todayHumidity, todayEmoji;
+var day1Temp, day1Wind, day1Humidity, day1Emoji;
+var day2Temp, day2Wind, day2Humidity, day2Emoji;
+var day3Temp, day3Wind, day3Humidity, day3Emoji;
+var day4Temp, day4Wind, day4Humidity, day4Emoji;
+var day5Temp, day5Wind, day5Humidity, day5Emoji;
+//DECLARE ALL GLOBAL VARIABLES ABOVE
 
-var cityName, todayTemp, todayWind, todayHumidity, todayEmoji;
 
 document.getElementById('searchbtn').addEventListener('click', function () {
     // Get the value from the user's text input box
@@ -45,15 +53,32 @@ document.getElementById('searchbtn').addEventListener('click', function () {
             }
         })
         .then(response => response.json())
-          // Drill down into the weatherData and populate global variables
+        // Drill down into the weatherData and populate global variables
         .then(weatherData => {
             todayTemp = weatherData.list[0].main.temp_max;
-                todayWind = weatherData.list[0].wind.speed;
-                todayHumidity = weatherData.list[0].main.humidity;
-                todayEmoji = weatherData.list[0].weather[0].main;
-
-            // Log the results to check if it's working
-            console.log(weatherData)
-            console.log(cityName, todayTemp, todayWind, todayHumidity, todayEmoji)
+            todayWind = weatherData.list[0].wind.speed;
+            todayHumidity = weatherData.list[0].main.humidity;
+            todayEmoji = weatherData.list[0].weather[0].main;
+            cityNameProper = weatherData.city.name;
+            //Convert from Kelvin and Knots.  Fun stuff.  Below have to use the .toFixed(2) in order to limit it to two decimal spaces
+            todayTempFarenheit = (todayTemp - 273.15) * 9/5 + 32;
+            todayWindMPH = todayWind * 1.15078;
+            // Call function
+            updateTodayData()
+            //NOW DO THE SAME FOR ALL 5 DAYS
+            day1Temp = weatherData.list[8].main.temp_max;
+            day1Wind = weatherData.list[8].wind.speed;
+            day1Humidity = weatherData.list[8].main.humidity;
+            day1Emoji = weatherData.list[8].weather[8].main;
+            day1TempFarenheit = (day1Temp - 273.15) * 9/5 + 32;
+            day1WindMPH = day1Wind * 1.15078;
         })
 })
+
+function updateTodayData() {
+    // Populate HTML for Today
+    $('#now-cde').text(`${cityNameProper}, ${todayDate}, ${todayEmoji}`);
+    $('#now-temp').text(`Temp: ${todayTempFarenheit.toFixed(2)} °F`);
+    $('#now-wind').text(`Wind: ${todayWindMPH.toFixed(2)} MPH`);
+    $('#now-humid').text(`Humidity: ${todayHumidity}%`);
+}
