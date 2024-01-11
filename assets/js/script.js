@@ -1,11 +1,4 @@
-//Event Listner for searchbtn
-//  fetch from lat/long api
-//  make into a variable (lets say latLon)
-//      use latlon to do a fetch from the 5Day api
-//          convert pertinent data into variables
-//              push those variables to populate in html into appropriate fields
-//                  3HR BLOCK ON 5DAY - Need to figure out how to target appropriate dayblocks for 5Day Display
-//
+
 //Take latlon and store it so it can be called again for the history buttons
 //  commit to local storage
 //  figure out how to display the city name on the buttons themselves
@@ -16,6 +9,21 @@
 //
 //HOW DID THEY DO THE EMOJI THING??
 
+// Use DayJS to get today's date in the format matching mock-up
+var todayDate = dayjs().format('MM/DD/YYYY');
+var day1Date = dayjs().add(1, 'day').format('MM/DD/YYYY');
+var day2Date = dayjs().add(2, 'day').format('MM/DD/YYYY');
+var day3Date = dayjs().add(3, 'day').format('MM/DD/YYYY');
+var day4Date = dayjs().add(4, 'day').format('MM/DD/YYYY');
+var day5Date = dayjs().add(5, 'day').format('MM/DD/YYYY');
+
+var cityNameProper, todayTemp, todayWind, todayHumidity, todayEmoji;
+var day1Temp, day1Wind, day1Humidity, day1Emoji;
+var day2Temp, day2Wind, day2Humidity, day2Emoji;
+var day3Temp, day3Wind, day3Humidity, day3Emoji;
+var day4Temp, day4Wind, day4Humidity, day4Emoji;
+var day5Temp, day5Wind, day5Humidity, day5Emoji;
+//DECLARE ALL GLOBAL VARIABLES ABOVE
 
 
 document.getElementById('searchbtn').addEventListener('click', function () {
@@ -44,8 +52,101 @@ document.getElementById('searchbtn').addEventListener('click', function () {
             }
         })
         .then(response => response.json())
+        // Drill down into the weatherData and populate global variables
         .then(weatherData => {
-            // Log the results to check if it's working
-            console.log(weatherData)
+            todayTemp = weatherData.list[0].main.temp_max;
+            todayWind = weatherData.list[0].wind.speed;
+            todayHumidity = weatherData.list[0].main.humidity;
+            todayEmoji = weatherData.list[0].weather[0].main;
+            cityNameProper = weatherData.city.name;
+            //Convert from Kelvin and Knots.  Fun stuff.  Below have to use the .toFixed(2) in order to limit it to two decimal spaces
+            todayTempFarenheit = (todayTemp - 273.15) * 9/5 + 32;
+            todayWindMPH = todayWind * 1.15078;
+            // Call function
+            updateTodayData()
+            //NOW DO THE SAME FOR ALL 5 DAYS
+            day1Temp = weatherData.list[8].main.temp_max;
+            day1Wind = weatherData.list[8].wind.speed;
+            day1Humidity = weatherData.list[8].main.humidity;
+            day1Emoji = weatherData.list[8].weather[0].main;
+            day1TempFarenheit = (day1Temp - 273.15) * 9/5 + 32;
+            day1WindMPH = day1Wind * 1.15078;
+            updateDay1Data()
+            day2Temp = weatherData.list[16].main.temp_max;
+            day2Wind = weatherData.list[16].wind.speed;
+            day2Humidity = weatherData.list[16].main.humidity;
+            day2Emoji = weatherData.list[16].weather[0].main;
+            day2TempFarenheit = (day2Temp - 273.15) * 9/5 + 32;
+            day2WindMPH = day2Wind * 1.15078;
+            updateDay2Data()
+            day3Temp = weatherData.list[24].main.temp_max;
+            day3Wind = weatherData.list[24].wind.speed;
+            day3Humidity = weatherData.list[24].main.humidity;
+            day3Emoji = weatherData.list[24].weather[0].main;
+            day3TempFarenheit = (day3Temp - 273.15) * 9/5 + 32;
+            day3WindMPH = day3Wind * 1.15078;
+            updateDay3Data()
+            day4Temp = weatherData.list[31].main.temp_max;
+            day4Wind = weatherData.list[31].wind.speed;
+            day4Humidity = weatherData.list[31].main.humidity;
+            day4Emoji = weatherData.list[31].weather[0].main;
+            day4TempFarenheit = (day4Temp - 273.15) * 9/5 + 32;
+            day4WindMPH = day4Wind * 1.15078;
+            updateDay4Data()
+            day5Temp = weatherData.list[39].main.temp_max;
+            day5Wind = weatherData.list[39].wind.speed;
+            day5Humidity = weatherData.list[39].main.humidity;
+            day5Emoji = weatherData.list[39].weather[0].main;
+            day5TempFarenheit = (day5Temp - 273.15) * 9/5 + 32;
+            day5WindMPH = day5Wind * 1.15078;
+            updateDay5Data()
         })
 })
+
+function updateTodayData() {
+    // Populate HTML for Today
+    $('#now-cde').text(`${cityNameProper}, ${todayDate}, ${todayEmoji}`);
+    $('#now-temp').text(`Temp: ${todayTempFarenheit.toFixed(2)} °F`);
+    $('#now-wind').text(`Wind: ${todayWindMPH.toFixed(2)} MPH`);
+    $('#now-humid').text(`Humidity: ${todayHumidity}%`);
+}
+
+function updateDay1Data() {
+    $('#day1date').text(`${day1Date}`);
+    $('#day1emoji').text(`${day1Emoji}`);
+    $('#day1temp').text(`Temp: ${day1TempFarenheit.toFixed(2)} °F`);
+    $('#day1wind').text(`Wind: ${day1WindMPH.toFixed(2)} MPH`);
+    $('#day1humid').text(`Humidity: ${day1Humidity}%`);
+}
+
+function updateDay2Data() {
+    $('#day2date').text(`${day2Date}`);
+    $('#day2emoji').text(`${day2Emoji}`);
+    $('#day2temp').text(`Temp: ${day2TempFarenheit.toFixed(2)} °F`);
+    $('#day2wind').text(`Wind: ${day2WindMPH.toFixed(2)} MPH`);
+    $('#day2humid').text(`Humidity: ${day2Humidity}%`);
+}
+
+function updateDay3Data() {
+    $('#day3date').text(`${day3Date}`);
+    $('#day3emoji').text(`${day3Emoji}`);
+    $('#day3temp').text(`Temp: ${day3TempFarenheit.toFixed(2)} °F`);
+    $('#day3wind').text(`Wind: ${day3WindMPH.toFixed(2)} MPH`);
+    $('#day3humid').text(`Humidity: ${day3Humidity}%`);
+}
+
+function updateDay4Data() {
+    $('#day4date').text(`${day4Date}`);
+    $('#day4emoji').text(`${day4Emoji}`);
+    $('#day4temp').text(`Temp: ${day4TempFarenheit.toFixed(2)} °F`);
+    $('#day4wind').text(`Wind: ${day4WindMPH.toFixed(2)} MPH`);
+    $('#day4humid').text(`Humidity: ${day4Humidity}%`);
+}
+
+function updateDay5Data() {
+    $('#day5date').text(`${day5Date}`);
+    $('#day5emoji').text(`${day5Emoji}`);
+    $('#day5temp').text(`Temp: ${day5TempFarenheit.toFixed(2)} °F`);
+    $('#day5wind').text(`Wind: ${day5WindMPH.toFixed(2)} MPH`);
+    $('#day5humid').text(`Humidity: ${day5Humidity}%`);
+}
