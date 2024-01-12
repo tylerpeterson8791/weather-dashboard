@@ -27,7 +27,7 @@ document.getElementById('searchbtn').addEventListener('click', function () {
     var cityName = document.querySelector('input').value
 
     // Make a fetch request to get latitude and longitude using the first API
-    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=5b26d3ed8c99c503e981069d21d6f31a`)
+    fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=5b26d3ed8c99c503e981069d21d6f31a`)
         /// Use .then calls because of the API delay so it doesn't get ahead of itself
         .then(response => response.json())
         .then(data => {
