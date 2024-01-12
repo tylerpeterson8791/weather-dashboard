@@ -161,12 +161,6 @@ function updateDay5Data() {
     $('#day5humid').text(`Humidity: ${day5Humidity}%`);
 }
 
-// // Save the current search call
-// saveSearch(cityName);
-
-// // Update the city buttons call
-// updateCityButtons()
-
 
 function saveSearch(city) {
     // Grab previous searches from local storage or pop in an empty array
