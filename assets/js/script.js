@@ -8,6 +8,10 @@
 //              HOW DO I HANDLE ADDING NEW CITIES AND BUMPING THE LIST. CONTINUOUSLY ADD AND ONLY DISPLAY FIRST 8?  I SMELL AN ARRAY
 //
 //HOW DID THEY DO THE EMOJI THING??
+//I can't figure out how to do the correct city name instead of user inputted name on buttons
+//I was going to force capital but that wouldn't help in two word city names, leaving it for now
+
+
 
 // Use DayJS to get today's date in the format matching mock-up
 var todayDate = dayjs().format('MM/DD/YYYY');
@@ -60,44 +64,49 @@ document.getElementById('searchbtn').addEventListener('click', function () {
             todayEmoji = weatherData.list[0].weather[0].main;
             cityNameProper = weatherData.city.name;
             //Convert from Kelvin and Knots.  Fun stuff.  Below have to use the .toFixed(2) in order to limit it to two decimal spaces
-            todayTempFarenheit = (todayTemp - 273.15) * 9/5 + 32;
+            todayTempFarenheit = (todayTemp - 273.15) * 9 / 5 + 32;
             todayWindMPH = todayWind * 1.15078;
             // Call function
             updateTodayData()
+            // Save the current search call
+            saveSearch(cityName);
+
+            // Update the city buttons call
+            updateCityButtons()
             //NOW DO THE SAME FOR ALL 5 DAYS
             day1Temp = weatherData.list[8].main.temp_max;
             day1Wind = weatherData.list[8].wind.speed;
             day1Humidity = weatherData.list[8].main.humidity;
             day1Emoji = weatherData.list[8].weather[0].main;
-            day1TempFarenheit = (day1Temp - 273.15) * 9/5 + 32;
+            day1TempFarenheit = (day1Temp - 273.15) * 9 / 5 + 32;
             day1WindMPH = day1Wind * 1.15078;
             updateDay1Data()
             day2Temp = weatherData.list[16].main.temp_max;
             day2Wind = weatherData.list[16].wind.speed;
             day2Humidity = weatherData.list[16].main.humidity;
             day2Emoji = weatherData.list[16].weather[0].main;
-            day2TempFarenheit = (day2Temp - 273.15) * 9/5 + 32;
+            day2TempFarenheit = (day2Temp - 273.15) * 9 / 5 + 32;
             day2WindMPH = day2Wind * 1.15078;
             updateDay2Data()
             day3Temp = weatherData.list[24].main.temp_max;
             day3Wind = weatherData.list[24].wind.speed;
             day3Humidity = weatherData.list[24].main.humidity;
             day3Emoji = weatherData.list[24].weather[0].main;
-            day3TempFarenheit = (day3Temp - 273.15) * 9/5 + 32;
+            day3TempFarenheit = (day3Temp - 273.15) * 9 / 5 + 32;
             day3WindMPH = day3Wind * 1.15078;
             updateDay3Data()
             day4Temp = weatherData.list[31].main.temp_max;
             day4Wind = weatherData.list[31].wind.speed;
             day4Humidity = weatherData.list[31].main.humidity;
             day4Emoji = weatherData.list[31].weather[0].main;
-            day4TempFarenheit = (day4Temp - 273.15) * 9/5 + 32;
+            day4TempFarenheit = (day4Temp - 273.15) * 9 / 5 + 32;
             day4WindMPH = day4Wind * 1.15078;
             updateDay4Data()
             day5Temp = weatherData.list[39].main.temp_max;
             day5Wind = weatherData.list[39].wind.speed;
             day5Humidity = weatherData.list[39].main.humidity;
             day5Emoji = weatherData.list[39].weather[0].main;
-            day5TempFarenheit = (day5Temp - 273.15) * 9/5 + 32;
+            day5TempFarenheit = (day5Temp - 273.15) * 9 / 5 + 32;
             day5WindMPH = day5Wind * 1.15078;
             updateDay5Data()
         })
@@ -109,6 +118,7 @@ function updateTodayData() {
     $('#now-temp').text(`Temp: ${todayTempFarenheit.toFixed(2)} °F`);
     $('#now-wind').text(`Wind: ${todayWindMPH.toFixed(2)} MPH`);
     $('#now-humid').text(`Humidity: ${todayHumidity}%`);
+
 }
 
 function updateDay1Data() {
@@ -149,4 +159,51 @@ function updateDay5Data() {
     $('#day5temp').text(`Temp: ${day5TempFarenheit.toFixed(2)} °F`);
     $('#day5wind').text(`Wind: ${day5WindMPH.toFixed(2)} MPH`);
     $('#day5humid').text(`Humidity: ${day5Humidity}%`);
+}
+
+
+function saveSearch(city) {
+    // Grab previous searches from local storage or pop in an empty array
+    var searches = JSON.parse(localStorage.getItem('searches')) || [];
+
+    // Add the current search to the array
+    searches.unshift(city);
+
+    // Store the updated array back to local storage
+    localStorage.setItem('searches', JSON.stringify(searches));
+}
+
+// Function to update the city buttons with previous searches
+function updateCityButtons() {
+    // Grab previous searches from local storage
+    var searches = JSON.parse(localStorage.getItem('searches')) || [];
+
+    // Display up to 8 previous searches or less if there are fewer
+    for (var i = 0; i < 8; i++) {
+        //the city button is the id city- with the numbers itterating through
+        var cityButton = $(`#city-${i + 1}`);
+
+        if (searches[i]) {
+            // If there is a previous search, display the button and set its text
+            cityButton.show();
+            cityButton.text(searches[i]);
+        } else {
+            // If there is no previous search, hide the button
+            cityButton.hide();
+        }
+    }
+}
+
+
+
+
+// Add click event listeners to city buttons
+for (var i = 1; i <= 8; i++) {
+    $(`#city-${i}`).on('click', function () {
+        // Grab the city name from the button text
+        var selectedCity = $(this).text();
+
+        // Pop the name of the previous city into the text field
+        $('input').val(selectedCity);
+    });
 }
