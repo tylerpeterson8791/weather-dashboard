@@ -40,12 +40,14 @@ What I did is save the previous searches to local storage by using the UNSHIFT f
 
 Initially I thought I would store lat and lon and re-run the second Fetch in a seperate function.  However what I ended up doing is, upon click, the name of the city is populated back into the text-box and the search button is automatically pushed.  This works great and bumps the city back to the top of the history.  I have pretty good notes in my code and commit comments so you can follow my logic.
 
+![Weather Dashboard](https://github.com/tylerpeterson8791/weather-dashboard/assets/75902133/52203957-1546-4025-8c3a-01f1b37cb891)
+
 ## Outstanding Issues
 I'm happy with the end result.  It's functional and easy to use.  It's not the prettiest site, but it does the job.  Here are some smaller extra things I couldn't figure out where if I had more time I'd accomplish (and still may if I revisit this ever):
 
 - I tried popping the emojis in for the weather status (like in the mock-up). I thought I had a smart solution where I convert the status in a function and wrap it around the jQuery call (lines 206-223), but for some reason the HTML only displays the text of the code. If I type the code directly into HTML it shows but not when I pop the same text from JS. So strange. Had to give that one up.
 
-- I wanted to add an event listener for the submit as the Enter key in addition to a click. I looked up some documentation on how to do it and that Enter is Key-13 ect... but I just couldn't wrap my head around how to implement it. This isn't a requirement but after using this site a lot for testing, I found myself naturally hitting Enter so I thought it would be nice to have. With more time I could figure this out I think.![Weather Dashboard](https://github.com/tylerpeterson8791/weather-dashboard/assets/75902133/52203957-1546-4025-8c3a-01f1b37cb891)
+- I wanted to add an event listener for the submit as the Enter key in addition to a click. I looked up some documentation on how to do it and that Enter is Key-13 ect... but I just couldn't wrap my head around how to implement it. This isn't a requirement but after using this site a lot for testing, I found myself naturally hitting Enter so I thought it would be nice to have. With more time I could figure this out I think.
 
 
 - Currently the History Buttons display the city name as typed by the user regardless of cApiTaL letters. I wanted to use the variable properCityName which is the name pulled from the API instead of user input but couldn't figure it out. Then I thought about forcing the first letter Capitalized and the rest lowercase, but for multiple word cities that wouldn't help either (shout out St. Paul and Des Moines!) so I left it as is. Not a huge deal but it bugs me.
