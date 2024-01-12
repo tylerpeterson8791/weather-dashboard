@@ -1,15 +1,7 @@
-
-//Take latlon and store it so it can be called again for the history buttons
-//  commit to local storage
-//  figure out how to display the city name on the buttons themselves
-//      program button listeners for clicks on those   
-//          upon click run the fetch for the 5Day api using stored latlon
-//          push variables into appropriate html
-//              HOW DO I HANDLE ADDING NEW CITIES AND BUMPING THE LIST. CONTINUOUSLY ADD AND ONLY DISPLAY FIRST 8?  I SMELL AN ARRAY
-//
-//HOW DID THEY DO THE EMOJI THING??
 //I can't figure out how to do the correct city name instead of user inputted name on buttons
 //I was going to force capital but that wouldn't help in two word city names, leaving it for now
+//
+//I can't figure out the emoji thing
 
 
 
@@ -66,13 +58,14 @@ document.getElementById('searchbtn').addEventListener('click', function () {
             //Convert from Kelvin and Knots.  Fun stuff.  Below have to use the .toFixed(2) in order to limit it to two decimal spaces
             todayTempFarenheit = (todayTemp - 273.15) * 9 / 5 + 32;
             todayWindMPH = todayWind * 1.15078;
+            
             // Call function
             updateTodayData()
             // Save the current search call
             saveSearch(cityName);
-
             // Update the city buttons call
             updateCityButtons()
+            
             //NOW DO THE SAME FOR ALL 5 DAYS
             day1Temp = weatherData.list[8].main.temp_max;
             day1Wind = weatherData.list[8].wind.speed;
@@ -115,8 +108,8 @@ document.getElementById('searchbtn').addEventListener('click', function () {
 function updateTodayData() {
     // Populate HTML for Today
     $('#now-cde').text(`${cityNameProper}, ${todayDate}, ${todayEmoji}`);
-    $('#now-temp').text(`Temp: ${todayTempFarenheit.toFixed(2)} °F`);
-    $('#now-wind').text(`Wind: ${todayWindMPH.toFixed(2)} MPH`);
+    $('#now-temp').text(`Temp: ${todayTempFarenheit.toFixed(0)} °F`);
+    $('#now-wind').text(`Wind: ${todayWindMPH.toFixed(0)} MPH`);
     $('#now-humid').text(`Humidity: ${todayHumidity}%`);
 
 }
@@ -124,40 +117,40 @@ function updateTodayData() {
 function updateDay1Data() {
     $('#day1date').text(`${day1Date}`);
     $('#day1emoji').text(`${day1Emoji}`);
-    $('#day1temp').text(`Temp: ${day1TempFarenheit.toFixed(2)} °F`);
-    $('#day1wind').text(`Wind: ${day1WindMPH.toFixed(2)} MPH`);
+    $('#day1temp').text(`Temp: ${day1TempFarenheit.toFixed(0)} °F`);
+    $('#day1wind').text(`Wind: ${day1WindMPH.toFixed(0)} MPH`);
     $('#day1humid').text(`Humidity: ${day1Humidity}%`);
 }
 
 function updateDay2Data() {
     $('#day2date').text(`${day2Date}`);
     $('#day2emoji').text(`${day2Emoji}`);
-    $('#day2temp').text(`Temp: ${day2TempFarenheit.toFixed(2)} °F`);
-    $('#day2wind').text(`Wind: ${day2WindMPH.toFixed(2)} MPH`);
+    $('#day2temp').text(`Temp: ${day2TempFarenheit.toFixed(0)} °F`);
+    $('#day2wind').text(`Wind: ${day2WindMPH.toFixed(0)} MPH`);
     $('#day2humid').text(`Humidity: ${day2Humidity}%`);
 }
 
 function updateDay3Data() {
     $('#day3date').text(`${day3Date}`);
     $('#day3emoji').text(`${day3Emoji}`);
-    $('#day3temp').text(`Temp: ${day3TempFarenheit.toFixed(2)} °F`);
-    $('#day3wind').text(`Wind: ${day3WindMPH.toFixed(2)} MPH`);
+    $('#day3temp').text(`Temp: ${day3TempFarenheit.toFixed(0)} °F`);
+    $('#day3wind').text(`Wind: ${day3WindMPH.toFixed(0)} MPH`);
     $('#day3humid').text(`Humidity: ${day3Humidity}%`);
 }
 
 function updateDay4Data() {
     $('#day4date').text(`${day4Date}`);
     $('#day4emoji').text(`${day4Emoji}`);
-    $('#day4temp').text(`Temp: ${day4TempFarenheit.toFixed(2)} °F`);
-    $('#day4wind').text(`Wind: ${day4WindMPH.toFixed(2)} MPH`);
+    $('#day4temp').text(`Temp: ${day4TempFarenheit.toFixed(0)} °F`);
+    $('#day4wind').text(`Wind: ${day4WindMPH.toFixed(0)} MPH`);
     $('#day4humid').text(`Humidity: ${day4Humidity}%`);
 }
 
 function updateDay5Data() {
     $('#day5date').text(`${day5Date}`);
     $('#day5emoji').text(`${day5Emoji}`);
-    $('#day5temp').text(`Temp: ${day5TempFarenheit.toFixed(2)} °F`);
-    $('#day5wind').text(`Wind: ${day5WindMPH.toFixed(2)} MPH`);
+    $('#day5temp').text(`Temp: ${day5TempFarenheit.toFixed(0)} °F`);
+    $('#day5wind').text(`Wind: ${day5WindMPH.toFixed(0)} MPH`);
     $('#day5humid').text(`Humidity: ${day5Humidity}%`);
 }
 
@@ -205,5 +198,26 @@ for (var i = 1; i <= 8; i++) {
 
         // Pop the name of the previous city into the text field
         $('input').val(selectedCity);
+
+        // Trigger a click event on the search button
+        $('#searchbtn').click();
     });
 }
+
+//THIS WORKS for converting them (wrap function around variable and post i.e. ${mapWeatherToSymbol(todayEmoji)}) but the HTML only shows the code and not the pic
+// When I put the code directly into an empty html field it shows symbol.  I have no idea why it's behaving different so I'm commenting this out until I can figure it out
+//
+//
+// // Convert weather conditions (the emoji outputs) into symbols
+// function mapWeatherToSymbol(description) {
+//     switch (description.toLowerCase()) {
+//         case 'clouds':
+//             return '&#9729';
+//         case 'clear':
+//             return '&#9728';
+//         case 'rain':
+//             return '&#9748';
+//         case 'snow':
+//             return '&#9731';
+//     }
+// }
