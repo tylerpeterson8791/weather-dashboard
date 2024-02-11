@@ -148,7 +148,7 @@ function updateDay4Data() {
 
 function updateDay5Data() {
     $('#day5date').text(`${day5Date}`);
-    $('#day5emoji').text(`${day5Emoji}`);
+    $('#day5emoji').html(`${mapWeatherToSymbol(day5Emoji)}`);
     $('#day5temp').text(`Temp: ${day5TempFarenheit.toFixed(0)} °F`);
     $('#day5wind').text(`Wind: ${day5WindMPH.toFixed(0)} MPH`);
     $('#day5humid').text(`Humidity: ${day5Humidity}%`);
@@ -209,15 +209,15 @@ for (var i = 1; i <= 8; i++) {
 //
 //
 // // Convert weather conditions (the emoji outputs) into symbols
-// function mapWeatherToSymbol(description) {
-//     switch (description.toLowerCase()) {
-//         case 'clouds':
-//             return '&#9729';
-//         case 'clear':
-//             return '&#9728';
-//         case 'rain':
-//             return '&#9748';
-//         case 'snow':
-//             return '&#9731';
-//     }
-// }
+function mapWeatherToSymbol(description) {
+    switch (description.toLowerCase()) {
+        case 'clouds':
+            return '&#9729';
+        case 'clear':
+            return '&#9728';
+        case 'rain':
+            return '&#9748';
+        case 'snow':
+            return '&#9731';
+    }
+}
